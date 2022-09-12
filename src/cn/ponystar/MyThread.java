@@ -8,6 +8,9 @@ public class MyThread extends Thread{
         this.counter = counter;
     }
 
+    /**
+     * 线程执行代码，从counter中获取数字并判断是否为质数，如果是质数输出数字和处理线程的名字到控制台
+     */
     @Override
     public void run() {
         while(counter.getValue() < 10000){

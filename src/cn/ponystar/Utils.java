@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Utils {
     /**
-     * 判断质数的函数
+     * 判断一个数是否为质数的函数
      * @param num the number ready to judge
      * @return num is prime or not
      */
