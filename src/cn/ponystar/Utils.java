@@ -37,7 +37,7 @@ public class Utils {
      * 空操作，否则peterson算法会出现未知错误
      */
     public static void pass(){
-        System.out.println();
+        System.out.print("");
     }
 
     private void isPrimeTest(){
