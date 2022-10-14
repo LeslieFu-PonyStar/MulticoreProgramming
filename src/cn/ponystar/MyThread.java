@@ -1,46 +1,41 @@
 package cn.ponystar;
 
-import cn.ponystar.locks.FastPath;
-import cn.ponystar.locks.LockTwo;
-import cn.ponystar.locks.Peterson;
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadMXBean;
+
+import cn.ponystar.locks.TASLock;
+import cn.ponystar.locks.TTASLock;
 
 public class MyThread extends Thread{
-    Counter counter;
+    private volatile Counter counter;
+    private static final int threadNum = 10;
+    private long threadID;
+    private ThreadMXBean threadMXBean =  ManagementFactory.getThreadMXBean();
     public MyThread(Counter counter){
         this.counter = counter;
+        this.threadID = super.getId();
     }
-    public int y;
     /**
-     * 线程执行代码，从counter中获取数字并判断是否为质数，如果是质数输出数字和处理线程的名字到控制台
+     * 线程执行代码，每个对counter加100万/n次
      */
     @Override
     public void run() {
-        long time = System.currentTimeMillis();
-
-        while(counter.getValue() < 20000000){
-            int num = counter.getAndIncrement();
-            if(Utils.isPrime(num)){
-                Utils.pass();
-                Utils.pass();
-                Utils.pass();
-                y++;}
+        int i = 0;
+        for(i = 0; i < 100000; i++){
+            counter.getAndIncrement();
         }
-        time = System.currentTimeMillis()-time;
-        System.out.println(time);
-        System.out.println(y);
-
+        System.out.println(threadMXBean.getThreadCpuTime(threadID) + " " + counter.getValue());
     }
 
     public static void main(String[] args) {
-        LockTwo  lock = new LockTwo();
         //Peterson lock = new Peterson();
-        Counter counter = new Counter(1, lock);
-        MyThread thread1 = new MyThread(counter);
-        MyThread thread2 = new MyThread(counter);
-
-        thread1.start();
-        thread2.start();
-
+        TASLock tasLock = new TASLock();
+        Counter counter = new Counter(0, tasLock);
+        MyThread[] myThreads = new MyThread[10]; 
+        for(int i = 0; i < threadNum; i++){
+            myThreads[i] = new MyThread(counter);
+            myThreads[i].start();
+        }
     }
 
 }

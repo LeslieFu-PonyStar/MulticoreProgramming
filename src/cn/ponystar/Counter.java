@@ -18,6 +18,7 @@ public class Counter {
         lock.lock();
         try{
             value = value + 1;
+            //System.out.println(value);
             return value;
         }finally {
             lock.unlock();
