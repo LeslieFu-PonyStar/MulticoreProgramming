@@ -12,8 +12,7 @@ public class TTASLock implements Lock{
             }
         if(!state.getAndSet(true))
             return;
-    }
-        
+        }
     }
 
     @Override
