@@ -37,7 +37,7 @@ public class RunnableThread implements Runnable{
     public static void main(String[] args) {
         //TTASLock tasLock = new TTASLock();
         //ALock aLock = new ALock(threadNum);
-        //CLHLock clhLock = new CLHLock();
+        CLHLock clhLock = new CLHLock();
         MCSLock mcsLock = new MCSLock();
         Counter counter = new Counter(0, mcsLock);
         CountDownLatch latch = new CountDownLatch(threadNum);

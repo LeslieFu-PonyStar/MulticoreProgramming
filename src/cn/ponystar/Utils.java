@@ -21,7 +21,7 @@ public class Utils {
     }
 
     /**
-     * 线程ID工具类，使用的是线程安全的hashmap和integer，在后续的学习再尝试自己造轮子
+     * 线程ID工具类，将ThreadID和整数映射，使用的是线程安全的hashmap和integer，在后续的学习再尝试自己造轮子
      */
     public static class ThreadID{
         private static final Map<Long, Integer> threadIDs = new ConcurrentHashMap<>();
