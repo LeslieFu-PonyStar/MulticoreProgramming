@@ -22,6 +22,12 @@ public class Counter {
             return value;
         }finally {
             lock.unlock();
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            };
         }
     }
 }
